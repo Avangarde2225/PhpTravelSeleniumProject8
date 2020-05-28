@@ -2,6 +2,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class Main {
 
             List<WebElement> languages = driver.findElements(By.xpath("//a[@class='dropdown-item']"));
 
-            //String myLanguage = languages.get( i ).getText();
+            String myLanguage = languages.get( i ).getText();
 
             languages.get(i).click();
 
@@ -49,8 +50,37 @@ public class Main {
 
             driver.findElement(By.xpath("//a[@id='dropdownLangauge']")).click();
 
+            Main newMain = new Main();
+            newMain.checkUrl(langUrl, myLanguage);
         }
 
 
+
+    }
+    public void checkUrl(String url, String language){
+        if(language.equalsIgnoreCase("Russian")){
+            Assert.assertTrue(url.contains("/ru"));
+        } else if(language.equalsIgnoreCase("Farsi")){
+            Assert.assertTrue( url.contains( "/fa" ) );
+        }
+        else if(language.equalsIgnoreCase("Vietnamese")){
+            Assert.assertTrue(url.contains("vi"));
+        }
+        else if(language.equalsIgnoreCase("French")){
+            Assert.assertTrue(url.contains("fr"));
+        }
+        else if(language.equalsIgnoreCase("Turkish")){
+            Assert.assertTrue(url.contains("tr"));
+        }
+        else if(language.equalsIgnoreCase("Arabic")){
+            Assert.assertTrue(url.contains("ar"));
+        }
+        else if(language.equalsIgnoreCase("Spanish")){
+            Assert.assertTrue(url.contains("es"));
+        }
+        else if(language.equalsIgnoreCase("English")){
+            Assert.assertTrue(url.contains("en"));
+
+        }
     }
 }
