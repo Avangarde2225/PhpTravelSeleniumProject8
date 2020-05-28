@@ -16,7 +16,7 @@ public class Main {
     Language of the website should be changed
 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\suler\\Desktop\\Selenium\\chromedriver\\chromedriver.exe");
 
@@ -26,19 +26,31 @@ public class Main {
 
         driver.manage().window().maximize();
 
-        WebElement dropDown = driver.findElement(By.xpath("//a[@id='dropdownLangauge']"));
-        dropDown.click();
+        driver.findElement(By.xpath("//a[@id='dropdownLangauge']")).click();
 
         int size = driver.findElements(By.xpath("//a[@class='dropdown-item']")).size();
-        System.out.println(size);
+        //System.out.println("There are " + size + " languages");
 
-        List<WebElement> languages = driver.findElements(By.xpath("//div[@class='dropdown dropdown-language show']//a"));
-        for (int i = 0; i <languages.size() ; i++) {
-            if(languages.get(i).getText().equalsIgnoreCase("English")) {
-                System.out.println(languages.get(i).getText());
-            }
+
+        for (int i = 0; i <size ; i++) {
+
+            List<WebElement> languages = driver.findElements(By.xpath("//a[@class='dropdown-item']"));
+
+            //String myLanguage = languages.get( i ).getText();
+
+            languages.get(i).click();
+
+//            if(languages.get(i).getText().equalsIgnoreCase("English")) {
+//                System.out.println(languages.get(i).getText());
+//            }
+            String langUrl = driver.getCurrentUrl();
+
+            System.out.println(langUrl);
+
+            driver.findElement(By.xpath("//a[@id='dropdownLangauge']")).click();
+
         }
 
-            driver.quit();
+
     }
 }
